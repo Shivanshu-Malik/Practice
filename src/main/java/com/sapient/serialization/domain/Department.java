@@ -1,15 +1,24 @@
 package com.sapient.serialization.domain;
 
-import org.codehaus.jackson.annotate.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Created by shiva on 5/13/2017.
  */
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "departmentId"
+)
 public class Department {
     private String departmentId;
     private String departmentName;
-    @JsonBackReference
+
     private Employee departmentLead;
+
+    public Department() {
+    }
 
     public Department(String departmentId, String departmentName, Employee departmentLead) {
         this.departmentId = departmentId;
@@ -67,7 +76,6 @@ public class Department {
         return "Department{" +
                 "departmentId='" + departmentId + '\'' +
                 ", departmentName='" + departmentName + '\'' +
-                ", departmentLead=" + departmentLead +
-                '}'+"\n";
+                '}';
     }
 }

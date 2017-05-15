@@ -1,18 +1,26 @@
 package com.sapient.serialization.domain;
 
-import org.codehaus.jackson.annotate.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Created by shiva on 5/13/2017.
  */
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "employeeId"
+)
 public class Employee {
     private String employeeId;
     private String firstName;
     private String lastName;
     private String address;
     private int salary;
-    @JsonManagedReference
-    private Department department;
+    Department department;
+
+    public Employee() {
+    }
 
     public Employee(String employeeId, String firstName, String lastName, String address, int salary, Department department) {
         this.employeeId = employeeId;

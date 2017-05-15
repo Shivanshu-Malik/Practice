@@ -1,8 +1,9 @@
 package com.sapient.serialization.main;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sapient.serialization.domain.Department;
 import com.sapient.serialization.domain.Employee;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,13 +42,12 @@ public class Main {
         employeeList.add(emp6);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String serializedList;
         try {
             objectMapper.writeValue(new File("serialisedJSON.json"),employeeList);
-            List deserialisedList = objectMapper.readValue(new File("serialisedJSON.json"),List.class);
+            List<Employee> deserialisedList = objectMapper.readValue(new File("serialisedJSON.json"), new TypeReference<List<Employee>>() {});
             System.out.println("Deserialised List:\n");
-            for(Object emp:deserialisedList){
-                System.out.println(emp);
+            for(Employee emp:deserialisedList){
+                System.out.println(emp + "\tDepartmentLead:"+emp.getDepartment().getDepartmentLead());
             }
         } catch (IOException e) {
             System.out.println("Exception Occurred!!!"+e);
